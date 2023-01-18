@@ -1,15 +1,35 @@
 name: CodeQL Analysis
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   codeql-analysis:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Run CodeQL analysis
-      uses: codeql/action@v1
+    - name: Setup CodeQL
+      uses: github/codeql-action/setup-codeql@v1
       with:
-        args: analyze
+        languages: cpp, php, python, go, javascript, c, ruby
+    - name: Analyze with CodeQL
+      uses: github/codeql-action/analyze-with-codeql@v1
+      with:
+        queries: |
+          import cpp
+          import php
+          import python
+          import go
+          import javascript
+          import c
+          import ruby
+          cpp.allFunctions()
+          php.allFunctions()
+          python.allFunctions()
+          go.allFunctions()
+          javascript.allFunctions()
+          c.allFunctions()
+          ruby.allFunctions()
+
