@@ -14,21 +14,6 @@ jobs:
       uses: github/codeql-action/setup-codeql@v2.1.0
       with:
         languages: cpp, php, python, go, javascript, c, ruby
-    - name: Analyze with CodeQL
-      uses: github/codeql-action/analyze-with-codeql@v2.1.0
-      with:
-        queries: |
-          import cpp
-          import php
-          import python
-          import go
-          import javascript
-          import c
-          import ruby
-          cpp.allFunctions()
-          php.allFunctions()
-          python.allFunctions()
-          go.allFunctions()
-          javascript.allFunctions()
-          c.allFunctions()
-          ruby.allFunctions()
+    - name: Analyze all files in root directory
+      run: |
+        codeql database analyze --language cpp,php,python,go,javascript,c,ruby --src . --output-dir codeql-result
