@@ -7,13 +7,16 @@ on:
 jobs:
   codeql-analysis:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: [ cpp, php, python, go, javascript, c, ruby ]
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Setup CodeQL
       uses: github/codeql-action/setup-codeql@v1
       with:
-        languages: cpp, php, python, go, javascript, c, ruby
+        languages: ${{ matrix.language }}
     - name: Analyze with CodeQL
       uses: github/codeql-action/analyze-with-codeql@v1
       with:
@@ -32,4 +35,5 @@ jobs:
           javascript.allFunctions()
           c.allFunctions()
           ruby.allFunctions()
+
 
