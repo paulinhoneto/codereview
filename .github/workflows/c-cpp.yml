@@ -1,4 +1,5 @@
 name: C/C++ CI
+run: chmod +x configure && ./configure
 
 on:
   push:
